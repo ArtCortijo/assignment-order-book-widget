@@ -1,9 +1,12 @@
+import { memo } from 'react';
 import { ConnectionStatus as ConnectionStatusType } from './types';
 
 interface ConnectionStatusProps {
 	status: ConnectionStatusType;
 }
 
-export default function ConnectionStatus({ status }: ConnectionStatusProps) {
+const ConnectionStatus = memo(({ status }: ConnectionStatusProps) => {
 	return <div>Connection status: {status}</div>;
-}
+});
+
+export default ConnectionStatus;
