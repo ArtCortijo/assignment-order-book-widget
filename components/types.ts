@@ -2,6 +2,9 @@
 export interface PriceUpdate {
 	timestamp: Date;
 	price: number;
+	bid: number;
+	ask: number;
+	spread: number;
 }
 
 export interface OrderBookProps {

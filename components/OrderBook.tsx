@@ -16,6 +16,8 @@ import {
 import PriceTicker from './PriceTicker';
 import ConnectionStatusComponent from './ConnectionStatus';
 import ErrorMessage from './ErrorMessage';
+import PriceTable from './PriceTable';
+import { Box, Typography } from '@mui/material';
 
 export default function OrderBook({
 	maxUpdates = 20,
@@ -53,10 +55,18 @@ export default function OrderBook({
 			// Update previous price
 			setPreviousPrice(currentPriceRef.current);
 
+			// Generate a bid/ask spread (0.05$)
+			const spread = 0.05;
+			const bid = newPrice - spread;
+			const ask = newPrice + spread;
+
 			// New price with timestamp
 			const priceUpdate: PriceUpdate = {
 				timestamp: new Date(),
 				price: newPrice,
+				bid,
+				ask,
+				spread: spread * 2, // Total spread
 			};
 
 			// Update price history
@@ -130,10 +140,6 @@ export default function OrderBook({
 		return cleanup;
 	}, [connectToStream]);
 
-	// useEffect(() => {
-	// 	console.log('priceHistory', priceHistory);
-	// }, [priceHistory]);
-
 	// Automatic reconnection
 	useEffect(() => {
 		if (isConnected === 'error' || isConnected === 'disconnected') {
@@ -147,16 +153,31 @@ export default function OrderBook({
 	}, [isConnected, reconnectInterval, connectToStream]);
 
 	return (
-		<>
-			<h1>Order Book</h1>
-			<ConnectionStatusComponent status={isConnected} />
-			<PriceTicker price={currentPrice} />
+		<Box sx={{ padding: 3 }}>
+			<Typography
+				variant='h4'
+				component='h1'
+				gutterBottom
+				sx={{ fontWeight: '700', color: '#141414' }}
+			>
+				Order Book
+			</Typography>
 
-			<div>
-				<div>Price direction: {currentPriceDirection || 'none'}</div>
-				<div>Previous price: {previousPrice?.toFixed(2) + ' $' || 'none'}</div>
-				<div>Price updates: {priceHistory.length}</div>
-			</div>
+			<Box sx={{ marginBottom: 2 }}>
+				<ConnectionStatusComponent status={isConnected} />
+			</Box>
+
+			<Box sx={{ marginBottom: 2 }}>
+				<PriceTicker
+					price={currentPrice}
+					direction={currentPriceDirection}
+					bid={priceHistory[0]?.bid || null}
+					ask={priceHistory[0]?.ask || null}
+					spread={priceHistory[0]?.spread || null}
+				/>
+			</Box>
+
+			<PriceTable priceHistory={priceHistory} />
 
 			{errorMessage && (
 				<ErrorMessage
@@ -165,6 +186,6 @@ export default function OrderBook({
 					reconnectInterval={reconnectInterval}
 				/>
 			)}
-		</>
+		</Box>
 	);
 }
