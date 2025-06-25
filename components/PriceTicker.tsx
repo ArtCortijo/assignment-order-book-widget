@@ -5,7 +5,7 @@ interface PriceTickerProps {
 }
 
 const PriceTicker = memo(({ price }: PriceTickerProps) => {
-	return <div>Current price: {price ? `${price.toFixed(2)} $` : ''}</div>;
+	return <div>Last price: {price ? `${price.toFixed(2)} $` : ''}</div>;
 });
 
 export default PriceTicker;
