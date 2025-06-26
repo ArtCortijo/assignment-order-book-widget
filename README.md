@@ -2,7 +2,17 @@
 
 ## Bug‑Bash & Improvement Brief
 
-[Link to the Bug‑Bash & Improvement Google Sheet](https://docs.google.com/spreadsheets/d/1KaVDvzhZhYWa74zqATsZNhuErjpX9514YM1lLS2rQEE/edit?usp=sharing)
+As part of this task, I conducted a bug-bash and usability review of the [T‑RIZE platform](https://platform.t-rize.io). The objective was to identify potential bugs, UI/UX issues, and areas for improvement from the perspective of a front-end developer.
+
+Each issue in the brief includes:
+
+- A description of the problem
+- A suggested fix or improvement
+- An estimated effort to implement the fix
+- A severity rating (Low, Medium, High)
+- Notes for additional information
+
+📄 [Link to the Bug‑Bash & Improvement Google Sheet](https://docs.google.com/spreadsheets/d/1KaVDvzhZhYWa74zqATsZNhuErjpX9514YM1lLS2rQEE/edit?usp=sharing)
 
 # Assignment option B
 
